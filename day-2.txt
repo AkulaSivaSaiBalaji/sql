@@ -1,0 +1,131 @@
+what is data?
+---------------
+
+Raw facts or figures without any context
+ex:
+---
+101,sai,100000,vizag
+
+what is field?
+-------------
+
+smallest unit of data in database(column/attribute)
+
+ex:
+---
+ename,esalary,eaddress,eid
+
+what is record?
+---------------
+
+collection of related records stored together(rows)
+
+example:
+(10,'sunny',100000)
+
+what is database?
+-----------------
+
+organized collection of related records stored together
+
+ex:
+---
+an employee database containing all employee records.
+
+
+Client-server-arch:
+-------------------
+
+client: The role of the client in Client-server arch is to send requests to the server and to get response from server.
+
+server: Server is a software, the role of the server in Client-server arch is to take requests from the client, if the request is valid it will generate some response and we can 
+	handover the response to the client, if client request is not valid it will generate error.
+
+Protocol: It has rules and regulations, the role of the protocol in Client-server arc is to send requests from client to server.
+
+
+
+Identifiers:
+------------
+rules:
+------
+1)a-z,A_Z,0-9,_,# -->only use these for identifiers
+2)never start with number 
+  x=10
+  10=10 -->incorrect
+3)spaces are not considered 
+  my name='Sai' -->incorrect
+4)reserve words are not considered
+5)length should be <15 characters
+
+
+SQL:(stretchered query language)
+-------------------------------
+SQL is a Standardized programming language specifically designed for managing and manipulating relational databases. It provides a declarative syntax that allows users to define what
+data they want to retrieve, insert, update or delete without specifying exactly how databases should execute these operations.
+
+
+SQL commands:
+-------------
+
+1)DDL(data definition language)
+-----------------------------
+
+defines and modifies the structure of database objects(tables, schemas, indexes)
+
+CREATE: creates a new database objects such as tables, database, views, indexes, triggers ...etc
+------
+
+how to create a database/schema ?
+--------------------------
+syntax: CREATE DATABASE database-name;
+                   or
+	CREATE SCHEMA schema-name
+
+
+how to create a table ?
+--------------------------
+syntax: CREATE TABLE table-name(
+	column-name datatype(size) constraint,
+	column-name datatype(size) constraint,
+	column-name datatype(size) constraint,
+	column-name datatype(size) constraint,)
+         
+
+ALTER
+
+DROP: permanently deletes an existing data base objects such as tables, database, views, along with its data and structure. 
+-----
+
+how to drop a database?
+-----------------------
+syntax: drop database database-name;
+                   or
+	drop schema schema-name;
+
+how to drop a table?
+--------------------
+syntax: drop table table-name;
+
+TRUNCATE
+RENAME
+
+2)DML(data manipulation language)
+------------------------------
+
+manages data stored within database objects(insert, update, delete)
+
+3)DCL(data control language)
+-------------------------
+
+manages permissions and access control on database objects.
+
+
+4)TCL(transactional control language)
+----------------------------------
+manages transactional to maintain data integrity.
+
+
+5)DQL(data query language)
+------------------------
+used to fetch/retrieve data from the database
