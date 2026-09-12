@@ -1,0 +1,544 @@
+Difference Between COUNT(*) and COUNT(column_name) in MySQL
+Feature
+COUNT(*)
+COUNT(column_name)
+Counts
+All rows in the table
+Only rows where the specified column is NOT NULL
+Includes NULL values
+Yes (counts every row)
+ No (ignores NULL values)
+Arguments
+*
+Column name
+Purpose
+Count total number of records
+Count non-NULL values in a specific column
+
+
+Clauses in MYSQL
+-------------------------------
+In MySQL, clauses are used to control how data is selected, filtered, grouped, sorted, or modified in SQL queries.
+ They make SQL statements more meaningful and powerful.
+Think of clauses like instructions given to the database.
+
+where clause
+================
+filter records based on specified conditions where clauses can be used as comparison operators, logical operators and ..etc operators.
+
+syntax
+---------
+select column1,column2....
+from table
+where condition.
+
+Group by clause
+===================
+The group by clause is used to group rows having the same values in one or more columns. It is commonly used with aggregate functions such as sum(),min(),max(),avg(),count().
+
+syntax
+---------
+select column-name,aggregate_function(column-name)
+from table-name
+group by column_name.
+
+Having Clause
+---------------
+The having clause is used to filter grouped records after group by clause. it is similar to where but it works on grouped instead of individual rows.
+
+syntax
+-----------
+select column-name,
+aggregate_function(column-name)
+from table-name
+group by column-name
+having condition.
+
+Order By Clause
+------------------
+the order by clause is used to sort the result set in ascending(ASC)or descending(Desc)order.
+asc-->Ascending order by default.
+Desc-->Descending order
+
+syntax:
+----------
+select column-name
+from table-name
+order by column-name asc;
+ 
+Example
+—--
+Step 1: Create Table
+CREATE TABLE STUDENTS (
+    StudentID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50),
+    Age INT,
+    Department VARCHAR(30),
+    Marks INT,
+    City VARCHAR(30)
+);
+
+ Insert Sample Data (without StudentID)
+INSERT INTO STUDENTS (Name, Age, Department, Marks, City) VALUES
+('Anil', 20, 'CSE', 85, 'Hyderabad'),
+('Sneha', 22, 'ECE', 75, 'Mumbai'),
+('Ravi', 20, 'CSE', NULL, 'Hyderabad'),
+('Divya', 23, 'MECH', 65, NULL),
+('Kiran', 22, 'ECE', 75, 'Pune'),
+('Varun', 21, 'CSE', 92, 'Chennai'),
+('Priya', 20, 'EEE', 88, 'Delhi'),
+('John', 22, 'MECH', 55, 'Mumbai'),
+('Rekha', 21, 'ECE', 75, 'Pune'),
+('Ramesh', 23, 'EEE', NULL, 'Delhi');
+
+select*from students;
+
+WHERE Clause Exercises 
+Question 1
+Display all students who belong to the CSE department.
+Query
+SELECT *
+ FROM students
+ WHERE Department = 'CSE';
+
+Question 2
+Display all students whose marks are greater than 80.
+Query
+SELECT *
+ FROM students
+ WHERE Marks > 80;
+
+Question 3
+Display all students who are 22 years old.
+Query
+SELECT *
+ FROM students
+ WHERE Age = 22;
+
+Question 4
+Display all students who belong to Mumbai.
+Query
+SELECT *
+ FROM students
+ WHERE City = 'Mumbai';
+
+Question 5
+Display all students whose marks are less than 70.
+Query
+SELECT *
+ FROM students
+ WHERE Marks < 70;
+
+Question 6
+Display all students whose marks are between 70 and 90.
+Query
+SELECT *
+ FROM students
+ WHERE Marks BETWEEN 70 AND 90;
+
+Question 7
+Display all students whose age is not equal to 20.
+Query
+SELECT *
+ FROM students
+ WHERE Age <> 20;
+
+Question 8
+Display all students who belong to CSE and have marks greater than 80.
+Query
+SELECT *
+ FROM students
+ WHERE Department = 'CSE'
+ AND Marks > 80;
+
+Question 9
+Display all students who belong to ECE or EEE department.
+Query
+SELECT *
+ FROM students
+ WHERE Department = 'ECE'
+ OR Department = 'EEE';
+
+Question 10
+Display all students whose city is not Delhi.
+Query
+SELECT *
+ FROM students
+ WHERE City <> 'Delhi';
+GROUP BY Clause 
+Question 1
+Display the total number of students in each department.
+Query
+SELECT Department, COUNT(*) AS Total_Students
+ FROM students
+ GROUP BY Department;
+
+Question 2
+Display the average marks of students in each department.
+Query
+SELECT Department, AVG(Marks) AS Average_Marks
+ FROM students
+ GROUP BY Department;
+
+Question 3
+Display the highest marks scored in each department.
+Query
+SELECT Department, MAX(Marks) AS Highest_Marks
+ FROM students
+ GROUP BY Department;
+
+Question 4
+Display the lowest marks scored in each department.
+Query
+SELECT Department, MIN(Marks) AS Lowest_Marks
+ FROM students
+ GROUP BY Department;
+
+Question 5
+Display the total marks obtained by students in each department.
+Query
+SELECT Department, SUM(Marks) AS Total_Marks
+ FROM students
+ GROUP BY Department;
+
+Question 6
+Display the number of students in each city.
+Query
+SELECT City, COUNT(*) AS Total_Students
+ FROM students
+ GROUP BY City;
+
+Question 7
+Display the average age of students in each department.
+Query
+SELECT Department, AVG(Age) AS Average_Age
+ FROM students
+ GROUP BY Department;
+
+Question 8
+Display the total marks obtained by students in each city.
+Query
+SELECT City, SUM(Marks) AS Total_Marks
+ FROM students
+ GROUP BY City;
+
+Question 9
+Display the highest marks in each city.
+Query
+SELECT City, MAX(Marks) AS Highest_Marks
+ FROM students
+ GROUP BY City;
+
+Question 10
+Display the total number of students according to age.
+Query
+SELECT Age, COUNT(*) AS Total_Students
+ FROM students
+ GROUP BY Age;
+
+HAVING Clause 
+Question 1
+Display departments having more than 2 students.
+Query
+SELECT Department, COUNT() AS Total_Students
+ FROM students
+ GROUP BY Department
+ HAVING COUNT() > 2;
+
+Question 2
+Display departments whose average marks are greater than 75.
+Query
+SELECT Department, AVG(Marks) AS Average_Marks
+ FROM students
+ GROUP BY Department
+ HAVING AVG(Marks) > 75;
+
+Question 3
+Display cities having more than one student.
+Query
+SELECT City, COUNT() AS Total_Students
+ FROM students
+ GROUP BY City
+ HAVING COUNT() > 1;
+
+Question 4
+Display departments whose total marks are greater than 150.
+Query
+SELECT Department, SUM(Marks) AS Total_Marks
+ FROM students
+ GROUP BY Department
+ HAVING SUM(Marks) > 150;
+
+Question 5
+Display age groups having more than two students.
+Query
+SELECT Age, COUNT() AS Total_Students
+ FROM students
+ GROUP BY Age
+ HAVING COUNT() > 2;
+
+Question 6
+Display cities whose average marks are greater than 70.
+Query
+SELECT City, AVG(Marks) AS Average_Marks
+ FROM students
+ GROUP BY City
+ HAVING AVG(Marks) > 70;
+
+Question 7
+Display departments whose highest marks are greater than 90.
+Query
+SELECT Department, MAX(Marks) AS Highest_Marks
+ FROM students
+ GROUP BY Department
+ HAVING MAX(Marks) > 90;
+
+Question 8
+Display departments whose lowest marks are less than 60.
+Query
+SELECT Department, MIN(Marks) AS Lowest_Marks
+ FROM students
+ GROUP BY Department
+ HAVING MIN(Marks) < 60;
+
+Question 9
+Display cities whose total marks are greater than 100.
+Query
+SELECT City, SUM(Marks) AS Total_Marks
+ FROM students
+ GROUP BY City
+ HAVING SUM(Marks) > 100;
+
+Question 10
+Display departments having exactly 2 students.
+Query
+SELECT Department, COUNT() AS Total_Students
+ FROM students
+ GROUP BY Department
+ HAVING COUNT() = 2;
+
+ORDER BY Clause 
+Question 1
+Display all students ordered by name.
+Query
+SELECT *
+ FROM students
+ ORDER BY Name;
+
+Question 2
+Display all students ordered by marks in descending order.
+Query
+SELECT *
+ FROM students
+ ORDER BY Marks DESC;
+
+Question 3
+Display all students ordered by age.
+Query
+SELECT *
+ FROM students
+ ORDER BY Age;
+
+Question 4
+Display all students ordered by department.
+Query
+SELECT *
+ FROM students
+ ORDER BY Department;
+
+Question 5
+Display all students ordered by city.
+Query
+SELECT *
+ FROM students
+ ORDER BY City;
+
+Question 6
+Display all students ordered by department and marks in descending order.
+Query
+SELECT *
+ FROM students
+ ORDER BY Department, Marks DESC;
+
+Question 7
+Display all students ordered by age in descending order.
+Query
+SELECT *
+ FROM students
+ ORDER BY Age DESC;
+
+Question 8
+Display all students ordered by city and name.
+Query
+SELECT *
+ FROM students
+ ORDER BY City, Name;
+
+Question 9
+Display all students ordered by marks and age.
+Query
+SELECT *
+ FROM students
+ ORDER BY Marks DESC, Age ASC;
+
+Question 10
+Display all students ordered by department, city, and name.
+Query
+SELECT *
+ FROM students
+ ORDER BY Department, City, Name;
+
+WHERE + GROUP BY + HAVING + ORDER BY (Order of Execution)
+SQL Execution Order
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+
+Question 1
+Display the average marks of each department considering only students older than 20 years. Show departments whose average marks are greater than 70 and sort the results by average marks in descending order.
+Query
+SELECT Department,
+ AVG(Marks) AS Average_Marks
+ FROM students
+ WHERE Age > 20
+ GROUP BY Department
+ HAVING AVG(Marks) > 70
+ ORDER BY Average_Marks DESC;
+
+Question 2
+Display the total number of students in each city considering only students whose marks are greater than 70. Show cities having more than one student and sort by total students.
+Query
+SELECT City,
+ COUNT() AS Total_Students
+ FROM students
+ WHERE Marks > 70
+ GROUP BY City
+ HAVING COUNT() > 1
+ ORDER BY Total_Students DESC;
+
+Question 3
+Display the total marks of each department considering only students from Hyderabad and Pune. Show departments whose total marks are greater than 100 and order by total marks.
+Query
+SELECT Department,
+ SUM(Marks) AS Total_Marks
+ FROM students
+ WHERE City IN ('Hyderabad','Pune')
+ GROUP BY Department
+ HAVING SUM(Marks) > 100
+ ORDER BY Total_Marks DESC;
+
+Question 4
+Display the highest marks obtained in each city considering only students from the ECE department. Show cities whose highest marks are greater than 70 and order by highest marks.
+Query
+SELECT City,
+ MAX(Marks) AS Highest_Marks
+ FROM students
+ WHERE Department='ECE'
+ GROUP BY City
+ HAVING MAX(Marks) > 70
+ ORDER BY Highest_Marks DESC;
+
+Question 5
+Display the average age of students in each department considering only students whose city is not NULL. Show departments whose average age is greater than 20 and sort alphabetically.
+Query
+SELECT Department,
+ AVG(Age) AS Average_Age
+ FROM students
+ WHERE City IS NOT NULL
+ GROUP BY Department
+ HAVING AVG(Age) > 20
+ ORDER BY Department;
+
+
+Example
+------------------
+-- Create the Student table
+CREATE TABLE Student (
+	student_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	email VARCHAR(100),
+	grade DECIMAL(5, 2),
+	enrollment_date DATE,
+	phone_number VARCHAR(15)
+);
+ 
+-- Insert sample data
+INSERT INTO Student (first_name, last_name, email, grade, enrollment_date, phone_number) VALUES
+('John', 'Doe', 'john.doe@example.com', 88.50, '2024-01-10', '555-0101'),
+('Jane', 'Smith', 'jane.smith@example.com', 92.00, '2024-01-15', '555-0102'),
+('Emily', 'Johnson', 'emily.johnson@example.com', 78.00, '2024-02-01', NULL),
+('Michael', 'Williams', 'michael.williams@example.com', 85.00, '2024-01-20', '555-0103'),
+('Anna', 'Brown', 'anna.brown@example.com', 95.00, '2024-02-05', '555-0104');
+
+-- Perform WHERE clause operations
+-- 1. Basic Filtering by Grade
+SELECT * FROM Student WHERE grade > 85;
+ 
+-- 2. Filtering by Enrollment Date
+SELECT * FROM Student WHERE enrollment_date >= '2024-01-15';
+ 
+-- 3. Filtering by Email Domain
+SELECT * FROM Student WHERE email LIKE '%example.com';
+ 
+-- 4. Filtering by NULL Values in Phone Number
+SELECT * FROM Student WHERE phone_number IS NULL;
+ 
+-- 5. Filtering with Multiple Conditions
+SELECT * FROM Student WHERE grade < 90 AND enrollment_date < '2024-02-01';
+ 
+-- Perform GROUP BY operations
+-- 1. Group by Enrollment Date
+SELECT enrollment_date, COUNT(*) AS student_count FROM Student GROUP BY enrollment_date;
+ 
+ 
+-- 3. Group by Enrollment Month
+SELECT MONTH(enrollment_date) AS month, COUNT(*) AS student_count FROM Student GROUP BY MONTH(enrollment_date);
+ 
+-- 4. Group by Grade and Enrollment Date
+SELECT grade, enrollment_date, COUNT(*) AS student_count
+FROM Student
+GROUP BY grade, enrollment_date;
+ 
+-- 5. Group by Email Domain
+SELECT SUBSTRING_INDEX(email, '@', -1) AS email_domain, COUNT(*) AS student_count
+FROM Student
+GROUP BY email_domain;
+ 
+-- Perform HAVING operations
+-- 1. Filtering Groups with Student Count Greater Than 1
+SELECT enrollment_date, COUNT(*) AS student_count
+FROM Student
+GROUP BY enrollment_date
+HAVING COUNT(*) > 1;
+ 
+-- 2. Filtering by Average Grade
+SELECT enrollment_date, AVG(grade) AS average_grade
+FROM Student
+GROUP BY enrollment_date
+HAVING AVG(grade) > 85;
+ 
+-- 3. Filtering by Total Grade
+SELECT enrollment_date, SUM(grade) AS total_grade
+FROM Student
+GROUP BY enrollment_date
+HAVING SUM(grade) > 400;
+ 
+-- Perform ORDER BY operations
+-- 1. Basic Sorting by Grade
+SELECT * FROM Student ORDER BY grade;
+ 
+-- 2. Descending Order by Grade
+SELECT * FROM Student ORDER BY grade DESC;
+ 
+-- 3. Sorting by Enrollment Date and Grade
+SELECT * FROM Student ORDER BY enrollment_date, grade DESC;
+ 
+-- 4. Sorting by Multiple Columns
+SELECT * FROM Student ORDER BY
+
+Order of execution
+•	Where-> group by-> having-> order by
